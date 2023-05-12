@@ -1,15 +1,14 @@
 const express = require('express');
 // const puppeteer = require('puppeteer');
-const knex = require('../../database/rme');
-const knux = require('../../database/auth');
+const knex = require('../databases')
 const templateHelper = require('./template');
 const router = express.Router();
 
 router.get('/pdf/rme/:random/view', async (req, res) => {
     try {
         const random = req.params.random;
-        const data = await knex('dbo.rme').where('random', random).first();
-        const rs = await knux('dbo.users').where('id', data.user_id).first();
+        const data = await knex('rme').where('random', random).first();
+        const rs = await knex('users').where('id', data.user_id).first();
         const date_visit = new Date(data.visit).toDateString().split(' ');
         const date_birthday = new Date(data.birthday).toDateString().split(' ');
         const item = {

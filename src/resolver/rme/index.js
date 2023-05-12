@@ -1,5 +1,4 @@
 const knex = require('../../databases')
-const knexU = require('../../../database/auth')
 const Validator = require('fastest-validator')
 const { v4: uuidv4 } = require('uuid')
 
@@ -53,7 +52,7 @@ module.exports = {
         const random = req.params.random
         try {
             const rme = await knex('rme').where({random}).first()
-            const created = await knexU('users').where({id: rme.user_id}).first()
+            const created = await knex('users').where({id: rme.user_id}).first()
             res.status(200).json({message: 'Get RME Success', data: {
                 ...rme,
                 hospital_name: created.fullname,
@@ -90,7 +89,7 @@ module.exports = {
             if(limit && offset) rme.limit(limit).offset(offset*limit)
             sort ? rme.orderBy(sort, sortType) : rme.orderBy('id', 'asc')
             const data = await rme
-            // const users = await knexU('users').where({id: data.user_id}).first()
+            // const users = await knex('users').where({id: data.user_id}).first()
             res.status(200).json({
                 message: 'Get RME Success', 
                 count: count[0].count, 
@@ -109,7 +108,7 @@ module.exports = {
             const validate = v.validate(req.query, schema)
             if (validate.length) return res.status(400).json({message: validate})
             const result = await knex('rme').where({nomor}).first()
-            const user = await knexU('users').where({id: result.user_id}).first()
+            const user = await knex('users').where({id: result.user_id}).first()
             if (result) return res.status(200).json({
                 message: 'RME success vertifikasi',
                 data: {
