@@ -25,7 +25,7 @@ module.exports = {
             if (validate.length) return res.status(400).json({message: validate})
             do {
                 random = uuidv4()
-            } while(await knex('public.rme').where({ random: random }).length)
+            } while(await knex('rme').where({ random: random }).length)
             if(await knex('rme').where({ nomor: nomor }).length) return res.status(400).json({message: 'Nomor already exists'})
             const result = await knex('rme').insert({
                 nomor,
