@@ -18,7 +18,7 @@ module.exports = {
                 name: name,
                 created_at: new Date(),
             }
-            await knex('dbo.roles').insert(data)
+            await knex('roles').insert(data)
             res.status(200).json({
                 message: 'Role created successfully',
                 data
@@ -32,7 +32,7 @@ module.exports = {
     },
     getsRole: async (req, res) => {
         try {
-            const data = await knex('dbo.roles').select()
+            const data = await knex('roles').select()
             res.status(200).json({
                 message: 'Role fetched successfully',
                 data
