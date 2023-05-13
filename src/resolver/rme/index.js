@@ -40,8 +40,7 @@ module.exports = {
                 profession,
                 random,
                 user_id: req.user.id,
-                blockhash: blockhash,
-                created_at: new Date()
+                blockhash: blockhash
             })
             if (result) return res.status(200).json({message: 'RME success created'})
         } catch (error) {
