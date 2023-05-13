@@ -126,7 +126,7 @@ module.exports = {
                 email, 
                 address,
                 phone,
-                publicAddress,
+                public_address: publicAddress,
                 random,
                 role_id: 2,
                 created_at: new Date(),
