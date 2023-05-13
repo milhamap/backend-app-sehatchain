@@ -59,7 +59,7 @@ module.exports = {
                 phone: telepon,
                 address: address,
                 email: email,
-                publicAddress: publicAddress,
+                public_address: publicAddress,
                 random: random,
                 role_id: 3,
                 created_at: new Date()
