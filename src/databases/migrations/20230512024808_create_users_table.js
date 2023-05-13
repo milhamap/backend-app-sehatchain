@@ -14,7 +14,7 @@ exports.up = function(knex) {
         table.string('image').nullable();
         table.integer('role_id').unsigned().notNullable();
         table.foreign('role_id').references('id').inTable('roles').onDelete('CASCADE').onUpdate('CASCADE');
-        table.string('refresh_token').notNullable();
+        table.string('refresh_token').nullable();
         table.timestamps(true, true);
     });
 };
