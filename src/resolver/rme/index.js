@@ -125,6 +125,7 @@ module.exports = {
         try {
             const rme = knex('rme')
             const counts = await rme.count('id as count')
+            console.log(new Date().toISOString().slice(0, 10))
             const count = await rme.count('id as total').where('user_id', req.user.id).where('created_at', new Date().toISOString().slice(0, 10))
             console.log(counts, count)
             res.status(200).json({message: 'Get RME Success', counts: counts[0].count, count: count[0].total})
