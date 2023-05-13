@@ -108,9 +108,8 @@ module.exports = {
             const validate = v.validate(req.query, schema)
             if (validate.length) return res.status(400).json({message: validate})
             const result = await knex('rme').where({nomor}).first()
-            const user = await knex('users').where({id: result.user_id}).first()
-            console.log(result)
             if (!result) return res.status(404).json({message: 'RME not found'})
+            const user = await knex('users').where({id: result.user_id}).first()
             return res.status(200).json({
                 message: 'RME success vertifikasi',
                 data: {
