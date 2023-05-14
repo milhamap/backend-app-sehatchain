@@ -10,7 +10,7 @@ exports.up = function(knex) {
         table.text('address').notNullable();
         table.string('phone', 13).notNullable();
         table.string('email').notNullable();
-        table.string('public_address').notNullable();
+        table.string('public_address').nullable();
         table.string('image').nullable();
         table.integer('role_id').unsigned().notNullable();
         table.foreign('role_id').references('id').inTable('roles').onDelete('CASCADE').onUpdate('CASCADE');

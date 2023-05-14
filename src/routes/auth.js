@@ -1,5 +1,5 @@
 const express = require('express')
-const { register, registerAdmin, login, loginAdmin, refreshToken, logout, getUser, updateUser, updatePassword, sendEmailVerification, confirmVerificationEmail, createActiveKey, checkActiveKey, deleteActiveKey } = require('../resolver/auth')
+const { register, registerAdmin, login, loginAdmin, refreshToken, logout, getUser, updateUser, updatePassword, sendEmailVerification, confirmVerificationEmail, createActiveKey, checkActiveKey, getsActiveKey } = require('../resolver/auth')
 const { verifyToken, isAdmin } = require('../middleware')
 const router = express.Router()
 
@@ -15,7 +15,8 @@ router.put('/user/update', verifyToken, updateUser)
 router.put('/user/update/password', verifyToken, updatePassword)
 router.delete('/logout', logout)
 
-router.post('/key/create', createActiveKey)
-router.post('/key/check', checkActiveKey)
+router.post('/key/create', isAdmin, createActiveKey)
+router.post('/key/check', isAdmin, checkActiveKey)
+router.get('/key', isAdmin, getsActiveKey)
 
 module.exports = router

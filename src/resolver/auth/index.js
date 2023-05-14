@@ -462,4 +462,18 @@ module.exports = {
             })
         }
     },
+
+    getsActiveKey: async(req, res) => {
+        try {
+            const data = await knex('active_key')
+            
+            res.status(200).json({ message: 'Success Gets Active Key', data });
+
+        } catch (error) {
+            res.status(500).json({
+                message: 'Internal Server Error',
+                error: error.message
+            })
+        }
+    }
 }
