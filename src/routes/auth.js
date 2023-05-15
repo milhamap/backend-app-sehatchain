@@ -16,7 +16,7 @@ router.put('/user/update/password', verifyToken, updatePassword)
 router.delete('/logout', logout)
 
 router.post('/key/create', isAdmin, createActiveKey)
-router.post('/key/check', isAdmin, checkActiveKey)
+router.post('/key/check', checkActiveKey)
 router.get('/key', isAdmin, getsActiveKey)
 
 module.exports = router
