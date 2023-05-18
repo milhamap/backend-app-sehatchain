@@ -64,7 +64,7 @@ module.exports = {
     getsRME: async (req, res) => {
         try {
             const { offset, limit, nik, date_min, date_max, name, sort, sortType } = req.query
-            const rme = knex('rme')
+            const rme = knex('rme').where({user_id: req.user.id})
             nik && rme.where('nik', 'like', `%${nik}%`)
             name && rme.where('name', 'like', `%${name}%`)
             if (date_min && date_max) rme.whereBetween('visit', [date_min, date_max])
@@ -122,13 +122,15 @@ module.exports = {
         }
     },
     getCountRME: async (req, res) => {
+        const today = new Date().toISOString().slice(0, 10);
+        const tomorrow = new Date(new Date().getTime() + 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
         try {
             const rme = knex('rme')
             const counts = await rme.count('id as count')
-            console.log(new Date().toISOString().slice(0, 10))
-            console.log(new Date())
-            const count = await rme.count('id as total').where('user_id', req.user.id).where('created_at', new Date())
-            console.log(counts, count)
+            const count = await rme.count('id as total')
+                          .where('user_id', req.user.id)
+                          .andWhere('created_at', '>=', today)
+                          .andWhere('created_at', '<', tomorrow);
             res.status(200).json({message: 'Get RME Success', counts: counts[0].count, count: count[0].total})
         } catch(error) {
             return res.status(500).json({message: 'Internal server error', error: error.message})

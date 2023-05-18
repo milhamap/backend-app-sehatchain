@@ -31,7 +31,7 @@ module.exports = {
                 address: 'string|empty:false',
                 email: 'email|empty:false',
                 nik: 'string|empty:false|min:16|max:16',
-                publicAddress: 'string|empty:false',
+                publicAddress: 'string|empty:true',
             }
             const validate = v.validate({
                 fullname,
@@ -89,7 +89,6 @@ module.exports = {
     },
     registerAdmin: async (req, res) => {
         const { fullname, email, address, phone, publicAddress, key } = req.body
-        console.log(req.body)
         try {
             //const telepon = formatPhoneNumber(phone)
             
@@ -98,7 +97,7 @@ module.exports = {
                 phone: 'string|empty:false|min:10|max:13',
                 address: 'string|empty:false',
                 email: 'email|empty:false',
-                publicAddress: 'string|empty:false',
+                // publicAddress: 'string|empty:true',
                 key: 'string|empty:false',
             }
             const validate = v.validate({
@@ -106,7 +105,7 @@ module.exports = {
                 phone,
                 address,
                 email,
-                publicAddress,
+                // publicAddress,
                 key
             }, schema)
             if (validate.length) return res.status(400).json({message: validate})
@@ -126,7 +125,7 @@ module.exports = {
                 email, 
                 address,
                 phone,
-                public_address: publicAddress,
+                public_address: "",
                 random,
                 role_id: 2,
                 created_at: new Date(),
